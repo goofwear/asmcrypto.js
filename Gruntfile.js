@@ -462,7 +462,14 @@ module.exports = function ( grunt ) {
                       + "'object'==typeof module&&module.exports?module.exports=exports:global.asmCrypto=exports;"
                       + "\n\nreturn exports;\n})( {}, function(){return this}() );",
                 sourceMap: true,
-                sourceMapStyle: 'link'
+                sourceMapStyle: 'embed',
+                process: function(src) {
+                    return src
+                        .replace(/\u2264/g, '<=')
+                        .replace(/\u00B2/g, '^2')
+                        .replace(/\u2014/g, '-')
+                        .replace(/\u00D7/g, 'x');
+                }
             },
             all: {
                 files: {
