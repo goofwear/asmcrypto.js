@@ -553,6 +553,7 @@ module.exports = function ( grunt ) {
     grunt.registerTask('sources', sources);
     grunt.registerTask('default', ['sources','concat','uglify']);
     grunt.registerTask('devel', ['sources','concat','connect','watch']);
+    grunt.registerTask('devel-build', ['sources','concat']);
     grunt.registerTask('test', ['connect','qunit']);
     grunt.registerTask('sauce', ['connect','saucelabs-qunit']);
 };
