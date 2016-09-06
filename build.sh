@@ -18,7 +18,7 @@ fi
 git checkout $BRANCH
 npm install
 
-grunt --with="$MODULES" devel-build
+grunt --with="$MODULES"
 
 d2u=$(which dos2unix)
 if [[ "$d2u" != "" ]]; then
