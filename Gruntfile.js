@@ -369,7 +369,6 @@ var browsers = [
 
 // Grunt setup
 module.exports = function ( grunt ) {
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -461,8 +460,6 @@ module.exports = function ( grunt ) {
                 footer: "\n\n'function'==typeof define&&define.amd?define([],function(){return exports}):"
                       + "'object'==typeof module&&module.exports?module.exports=exports:global.asmCrypto=exports;"
                       + "\n\nreturn exports;\n})( {}, function(){return this}() );",
-                sourceMap: true,
-                sourceMapStyle: 'embed',
                 process: function(src) {
                     return src
                         .replace(/\u2264/g, '<=')
@@ -474,23 +471,6 @@ module.exports = function ( grunt ) {
             all: {
                 files: {
                     'asmcrypto.js': '<%= sources.files %>'
-                }
-            }
-        },
-
-        uglify: {
-            options: {
-                mangle: {},
-                compress: {},
-                sourceMap: true,
-                sourceMapIn: 'asmcrypto.js.map',
-                sourceMapIncludeSources: true,
-                screwIE8: true,
-                banner: "/*! asmCrypto<%= pkg.version && ' v'+pkg.version %>, (c) 2013 <%= pkg.author.name %>, opensource.org/licenses/<%= pkg.license %> */"
-            },
-            all: {
-                files: {
-                    'asmcrypto.js': 'asmcrypto.js'
                 }
             }
         },
@@ -551,9 +531,8 @@ module.exports = function ( grunt ) {
     });
 
     grunt.registerTask('sources', sources);
-    grunt.registerTask('default', ['sources','concat','uglify']);
+    grunt.registerTask('default', ['sources','concat']);
     grunt.registerTask('devel', ['sources','concat','connect','watch']);
-    grunt.registerTask('devel-build', ['sources','concat']);
     grunt.registerTask('test', ['connect','qunit']);
     grunt.registerTask('sauce', ['connect','saucelabs-qunit']);
 };
